@@ -112,7 +112,7 @@ int main(void)
 	INF("ABOUT ANGLE AND SPEED couterclock is postive from outside. 从外部看向电机侧");
 	INF("the acc1 of left hip - d w | the acc2 of right hip - d w | I1 ,I2\r\n");
 	
-	HC05_RcvCmd();
+//	HC05_RcvCmd();
 	
 	/******* test code *******/
 	//  test_USART1_communication();
@@ -216,10 +216,10 @@ int main(void)
 			
 			assive_mode[0] = switch_task( &hip1, hip1_d, hip1_w, 1);	// 模式切换
 
-//			if(stopFlag[0] == 1){
-//				assive_mode[0] = POMODE;
-//				stopFlag[0]=0;
-//			}
+			if(stopFlag[0] == 1){
+				assive_mode[0] = POMODE;
+				stopFlag[0]=0;
+			}
 			
 			/* get phase */
 			k = AssisTor;
