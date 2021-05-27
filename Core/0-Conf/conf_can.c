@@ -15,6 +15,13 @@
 
 CAN_HandleTypeDef hcan1;
 
+
+/**
+  * @brief CAN Function Initialization. bps set and mode set
+  * @param mode: CAN_MODE_NORMAL/CAN_MODE_LOOPBACK
+  * @retval None
+  * @note  bps: 36M/(SyncJumpWidth+TimeSeg1+TimeSeg2)/Prescaler		36M/(3+8+1)/3 = 1 MHz
+  */
 void CANHandle_Init(uint32_t mode)
 {
 	hcan1.Instance = CAN1;

@@ -21,6 +21,8 @@ int16_t stopCounter[2] = {0}, stopFlag[2] = {0};
 /*  交互力模块 */
 uint16_t Interaction_force=0;
 
+uint8_t CANID_righthip_odriver = 0x2;
+
 
 /* 外部IMU采集 */
 float hip1_w, hip1_d, I1;
@@ -85,6 +87,8 @@ int main(void)
 	Jlink_Init();
 	debug_init();
 	
+	current_control();
+	
 	FSR_Init();
 	
 	/*初始化*/
@@ -98,10 +102,12 @@ int main(void)
 	/*峰值检测*/
 	WinBuffer(&d1minwin_w, d1Win, 3);
 	WinBuffer(&d2minwin_w, d2Win, 3);
-	
+
+	Odrive_Init(CANID_righthip_odriver);
 	AO_Init(period[0]*dt, 1);
 	AO_Init(period[1]*dt, 2);
 	ECON_I_init();
+	
 
 
 	/*启动外设*/
@@ -251,8 +257,8 @@ int main(void)
 			}
 
 			I1 = k*sin(phase[0]);
-			set_I_direction(1,I1);
-//			set_I_direction(1,0);
+//			set_I_direction(1,I1);
+			set_I_direction(1,0);
 			AssisMonitor("I1 %.2f\t",I1);
 			}
 			
@@ -313,7 +319,7 @@ int main(void)
 //			}
 			
 			I2 = K * sin(phase[1]);
-//			set_I_direction(2,I2);
+			set_I_direction(2,I2);
 //			set_I_direction(2,0.55);
 			if(-I2 < 0){  set_I_direction(2,-I2-0.30);}
 			else{	set_I_direction(2,-I2+0.55);}

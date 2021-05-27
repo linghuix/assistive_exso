@@ -640,6 +640,8 @@ int ODrive_SetID(uint8_t oldID, uint8_t newID)
 #define            INPUT_MODE_TORQUE_RAMP            6
 #define            INPUT_MODE_MIRROR                 7
 
+
+
 // 电流模式配置
 void Current_conf(uint8_t ID){
 	
@@ -666,7 +668,7 @@ void Odrive_Init(uint8_t ID){
 	CAN_Start(&hcan1);
 	
 	ODrive_Reboot(ID);
-	HAL_Delay(15000);
+//	HAL_Delay(15000);
 	
 }
 
@@ -680,15 +682,15 @@ uint8_t ID_righthip_odriver = 0x2;
 TEST current_control(void)
 {
 
-	Odrive_Init(ID_lefthip_odriver);
+//	Odrive_Init(ID_lefthip_odriver);
 	Odrive_Init(ID_righthip_odriver);
-	HAL_Delay(1000);
-	Current_conf(ID_lefthip_odriver);
-	ODrive_Set_Input_Current(ID_lefthip_odriver, 0);
+//	HAL_Delay(1000);
+	Current_conf(ID_righthip_odriver);
+	ODrive_Set_Input_Current(ID_righthip_odriver, 0);
 	
-	for (int i=0;i<2000000;i++){
+	for (int i=0;i<20000;i++){
 		
-		ODrive_Set_Input_Current(ID_lefthip_odriver, 0.2*sin(i*0.5));		//left postive current value makes the leg move forward. 
+		ODrive_Set_Input_Current(ID_righthip_odriver, 0.2*sin(i*0.5));		//left postive current value makes the leg move forward. 
 //		ODrive_Set_Input_Current(ID_lefthip_odriver, 0.4);
 		HAL_Delay(100);
 	}										//right postive current value makes the leg move backward

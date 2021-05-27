@@ -19,6 +19,6 @@
 #define MSG_deviceTest(...) //printf (__VA_ARGS__)
 
 
-#define Error_Handler() while(1);
+#define Error_Handler() //while(1);
 
 #endif /* BSP_DEVICE_BSP_H_ */
