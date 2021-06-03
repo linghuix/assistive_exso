@@ -83,7 +83,7 @@ void MX_CAN1_Init(uint32_t mode)
 {
 	CANHandle_Init(mode);
 	CanFilter_Init(&hcan1, CAN_FILTER_FIFO0);
-	CAN_ITEnable();
+//	CAN_ITEnable();
 }
 
 void MX_CAN1_Test_Init(uint32_t mode)

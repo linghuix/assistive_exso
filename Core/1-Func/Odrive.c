@@ -662,14 +662,14 @@ void Pos_conf(uint8_t ID){
 	ODrive_Set_Controller_Modes(ID, CONTROL_MODE_POSITION_CONTROL, INPUT_MODE_PASSTHROUGH);
 }
 
+int j;
 void Odrive_Init(uint8_t ID){
 	
 	MX_CAN1_Init(CAN_MODE_NORMAL);
 	CAN_Start(&hcan1);
 	
 	ODrive_Reboot(ID);
-//	HAL_Delay(15000);
-	
+	HAL_Delay(10000);
 }
 
 #ifdef ODRIVE_TEST
@@ -686,15 +686,16 @@ TEST current_control(void)
 	Odrive_Init(ID_righthip_odriver);
 //	HAL_Delay(1000);
 	Current_conf(ID_righthip_odriver);
-	ODrive_Set_Input_Current(ID_righthip_odriver, 0);
+//	ODrive_Set_Input_Current(ID_righthip_odriver, -0.5);
+	int j;
 	
 	for (int i=0;i<20000;i++){
 		
-		ODrive_Set_Input_Current(ID_righthip_odriver, 0.2*sin(i*0.5));		//left postive current value makes the leg move forward. 
+		ODrive_Set_Input_Current(ID_righthip_odriver, 0.5*cos(i*0.5));		//left postive current value makes the leg move forward. 
 //		ODrive_Set_Input_Current(ID_lefthip_odriver, 0.4);
 		HAL_Delay(100);
 	}										//right postive current value makes the leg move backward
-	while(1);
+//	while(1);
 }
 
 
